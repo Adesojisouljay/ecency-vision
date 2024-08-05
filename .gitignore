@@ -19,3 +19,5 @@ src/config.ts
 
 dev.sh
 stats.json
+
+.env

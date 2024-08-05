@@ -70,6 +70,10 @@ export interface Global {
   usePrivate: boolean;
   hsClientId: string;
   lastIndexPath: string | null;
+  hive_id: string;
+  ctheme: string;
+  tags: string[];
+  communityTitle: string;
 }
 
 export enum ActionTypes {

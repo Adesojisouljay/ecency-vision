@@ -158,7 +158,11 @@ export const globalInstance: Global = {
   newVersion: null,
   usePrivate: true,
   lastIndexPath: null,
-  hsClientId: "ecency.app"
+  hsClientId: "ecency.app",
+  hive_id: "",
+  tags: [],
+  ctheme: "",
+  communityTitle: ""
 };
 
 export const TrendingTagsInstance: TrendingTags = {

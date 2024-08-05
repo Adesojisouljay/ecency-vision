@@ -14,9 +14,10 @@ export function NavbarMainSidebarToggle({ onClick }: Props) {
       </div>
       <a href="/">
         <img
-          src={require("../../img/logo-circle.svg")}
+          src={`https://images.ecency.com/u/hive-137017/avatar/lardge`}
           className="logo relative min-w-[40px] max-w-[40px]"
           alt="Logo"
+          style={{ borderRadius: "50%" }}
         />
       </a>
     </div>

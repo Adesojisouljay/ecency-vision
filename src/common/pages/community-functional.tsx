@@ -60,7 +60,7 @@ export const CommunityPage = (props: Props) => {
     return updatedLocation.replace("?", "").replace("q", "").replace("=", "").replace("&", "");
   };
   const queryClient = useQueryClient();
-  const { data: community } = useCommunityCache(props.match.params.name);
+  const { data: community } = useCommunityCache(props.global.hive_id);
   const { data: channels } = useChannelsQuery();
   const { data: leftChannelsIds } = useLeftCommunityChannelsQuery();
 
