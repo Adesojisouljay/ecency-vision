@@ -48,7 +48,11 @@ export const initialState: Global = {
   isMobile: false,
   usePrivate: true,
   hsClientId: "ecency.app",
-  lastIndexPath: null
+  lastIndexPath: null,
+  hive_id: "",
+  ctheme: "",
+  tags: [],
+  communityTitle: ""
 };
 
 export default (state: Global = initialState, action: Actions): Global => {

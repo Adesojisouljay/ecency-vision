@@ -8,19 +8,49 @@ import entryIndexHandler from "./handlers/entry-index";
 import communityHandler from "./handlers/community";
 import profileHandler from "./handlers/profile";
 import entryHandler from "./handlers/entry";
-import fallbackHandler, { androidURI, healthCheck, iosURI, nodeList } from "./handlers/fallback";
-import { authorRssHandler, entryRssHandler } from "./handlers/rss";
+import fallbackHandler, { healthCheck, iosURI, androidURI, nodeList } from "./handlers/fallback";
+import { entryRssHandler, authorRssHandler } from "./handlers/rss";
 import * as authApi from "./handlers/auth-api";
-import { authCheck } from "./util";
-import { coingeckoHandler } from "./handlers/coingecko.handler";
 import config from "../config";
-import defaults from "../common/constants/defaults.json";
-import { CleanUrlMiddleware } from "./middlewares";
+// import { pointsHandler } from "./handlers/points";
+import { pointsHandler } from "./handlers/points";
 
 const server = express();
 
 const entryFilters = Object.values(EntryFilter);
 const profileFilters = Object.values(ProfileFilter);
+
+const cleanURL = (req: any, res: any, next: any) => {
+  if (req.url.includes("//")) {
+    res.redirect(req.url.replace(new RegExp("/{2,}", "g"), "/"));
+  }
+  if (req.url.includes("-hs?code")) {
+    next();
+  } else if (req.url !== req.url.toLowerCase() && !req.url.includes("auth?code")) {
+    res.redirect(301, req.url.toLowerCase());
+  } else {
+    next();
+  }
+};
+
+const stripLastSlash = (req: any, res: any, next: any) => {
+  if (req.path.substr(-1) === "/" && req.path.length > 1) {
+    let query = req.url.slice(req.path.length);
+    res.redirect(301, req.path.slice(0, -1) + query);
+  } else {
+    next();
+  }
+};
+
+const authCheck = (req: any, res: any, next: any) => {
+  if (config.hsClientSecret && config.usePrivate !== "1") {
+    next();
+  } else {
+    res.json({
+      error: "Define HIVESIGNER_SECRET ENV variable or set USE_PRIVATE=1"
+    });
+  }
+};
 
 server
   .disable("x-powered-by")
@@ -28,20 +58,20 @@ server
   .use("/assets", express.static(`${process.env.RAZZLE_PUBLIC_DIR!}/assets`))
   .use(express.json())
   .use(cookieParser())
-  .use(CleanUrlMiddleware.build)
+  .use(cleanURL)
+  .use(stripLastSlash)
 
   // Common backend
   .get(
     [
-      `^/:filter(${entryFilters.join("|")})/:tag/rss.xml$` // /trending/ecency/rss.xml
+      `^/:filter(${entryFilters.join("|")})/:tag/rss.xml$` // /trending/esteem/rss.xml
     ],
     entryRssHandler
   )
   .get(
     [
-      "^/@:author/:section(feed|blog|posts)/rss.xml$", // /posts/@ecency/rss.xml
-      "^/@:author/rss.xml$", // @ecency/rss.xml
-      "^/@:author/rss$" //@ecency/rss
+      "^/@:author/:section(feed|blog|posts)/rss.xml$", // /posts/@esteemapp/rss.xml
+      "^/@:author/rss.xml$" // @esteemapp/rss.xml
     ],
     authorRssHandler
   )
@@ -65,7 +95,7 @@ server
       "^/@:username$", // /@esteemapp
       `^/@:username/:section(${profileFilters.join(
         "|"
-      )}|communities|wallet|points|engine|settings|permissions|referrals|followers|following|spk)$` // /@esteemapp/comments
+      )}|communities|wallet|points|engine|settings)$` // /@esteemapp/comments
     ],
     profileHandler
   )
@@ -87,30 +117,9 @@ server
 
   // Health check script for docker swarm
   .get("^/healthcheck.json$", healthCheck)
-  // CoinGecko market rate API
-  .get("^/coingecko/api/v3/simple/price$", coingeckoHandler)
+  .post("^/private-api/points", pointsHandler)
+
   // For all others paths
   .get("*", fallbackHandler);
-
-if (
-  config.hsClientId === "ecency.app" &&
-  defaults.base === "https://ecency.com" &&
-  config.hsClientSecret.length === 0
-) {
-  // Use Ecency servers
-} else if (
-  config.hsClientId === "ecency.app" ||
-  defaults.base === "https://ecency.com" ||
-  config.hsClientSecret.length === 0 ||
-  config.usePrivate === "1"
-) {
-  console.error("configurationError:", {
-    base: defaults.base,
-    hsClientId: config.hsClientId,
-    hsClientSecret: config.hsClientSecret,
-    usePrivate: config.usePrivate
-  });
-  process.exit(1);
-}
 
 export default server;

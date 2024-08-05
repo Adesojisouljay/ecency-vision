@@ -15,14 +15,16 @@ import config from "../config";
 import { getSearchIndexCount, getDynamicProps } from "./helper";
 
 import { getOperatingSystem } from "../common/util/platform";
+import { getCommunity } from "../common/api/bridge";
 
 export const makePreloadedState = async (req: express.Request): Promise<AppState> => {
   const _c = (k: string): any => req.cookies[k];
 
   const activeUser = _c("active_user") || null;
 
-  const theme =
-    _c("theme") && Object.values(Theme).includes(_c("theme")) ? _c("theme") : defaults.theme;
+  const communityData = await getCommunity(config.hive_id);
+
+  const theme = _c("theme") && Object.values(Theme).includes(_c("theme")) ? _c("theme") : "sky";
   const listStyle =
     _c("list-style") && Object.values(ListStyle).includes(_c("list-style"))
       ? _c("list-style")
@@ -31,8 +33,8 @@ export const makePreloadedState = async (req: express.Request): Promise<AppState
 
   const globalState: Global = {
     ...initialState.global,
-    theme: Theme[theme],
-    listStyle: ListStyle[listStyle],
+    theme: Theme[theme as Theme],
+    listStyle: ListStyle[listStyle as ListStyle],
     intro,
     searchIndexCount: await getSearchIndexCount(),
     canUseWebp: req.headers.accept !== undefined && req.headers.accept.indexOf("image/webp") !== -1,
@@ -40,8 +42,12 @@ export const makePreloadedState = async (req: express.Request): Promise<AppState
       req.headers["user-agent"] &&
       ["iOS", "AndroidOS"].includes(getOperatingSystem(req.headers["user-agent"]))
     ),
-    usePrivate: Boolean(parseInt(config.usePrivate, 10)),
-    hsClientId: config.hsClientId
+    usePrivate: false,
+    hive_id: config.hive_id,
+    ctheme: config.theme,
+    tags: [...config.tags],
+    // baseApiUrl: config.baseApiUrl,
+    communityTitle: communityData!.title
   };
 
   const dynamicProps = await getDynamicProps();

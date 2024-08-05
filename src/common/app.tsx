@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Route, Switch } from "react-router-dom";
 import EntryIndexContainer from "./pages/index";
 import { EntryScreen } from "./pages/entry";
@@ -35,6 +35,7 @@ import { useGetAccountFullQuery } from "./api/queries";
 import { UIManager } from "@ui/core";
 import defaults from "./constants/defaults.json";
 import { getAccessToken } from "./helper/user-token";
+import { history } from "./store";
 
 // Define lazy pages
 const ProfileContainer = loadable(() => import("./pages/profile-functional"));
@@ -93,6 +94,15 @@ const App = (props: any) => {
   const { hide } = useGlobalLoader();
 
   const { data: activeUserAccount } = useGetAccountFullQuery(activeUser?.username);
+
+  useEffect(() => {
+    if (window.location.pathname === "/") {
+      const defaultFilter = "trending";
+      console.log(defaultFilter);
+      const defaultCommunity = "hive-106130";
+      history?.push(`/${defaultFilter}/${defaultCommunity}`);
+    }
+  }, []);
 
   useMount(() => {
     // Drop hiding from main queue to give React time to render

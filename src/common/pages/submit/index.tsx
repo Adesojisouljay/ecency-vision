@@ -261,6 +261,7 @@ export function Submit(props: PageProps & MatchProps) {
   });
 
   useEffect(() => {
+    // console.log(props)
     if (postPoll) {
       setActivePoll(postPoll);
     }

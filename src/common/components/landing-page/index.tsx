@@ -96,7 +96,7 @@ export default (props: any) => {
       <div className="tob-bg-fishes" />
       <div className="sections first-section">
         <div className="text-container text-center">
-          <h1>{_t("landing-page.welcome-text")}</h1>
+          <h1>Welcome to {global.communityTitle}</h1>
           <div className="flex flex-wrap justify-center items-center">
             <p className="mb-3 w-88">{_t("landing-page.what-is-ecency")}</p>
           </div>
@@ -110,15 +110,15 @@ export default (props: any) => {
               </Link>
             </button>
           </div>
-          <span
+          {/* <span
             className="scroll-down cursor-pointer"
             onClick={() => earnMoneyRef.current?.scrollIntoView({ behavior: "smooth" })}
           >
             {scrollDown}
-          </span>
+          </span> */}
         </div>
       </div>
-      <div className="sections second-section" id="earn-money" ref={earnMoneyRef}>
+      {/* <div className="sections second-section" id="earn-money" ref={earnMoneyRef}>
         <div className="part-top">
           <div className="inner">
             <img src={EarnMoney} alt="earn-money" loading="lazy" className="mx-auto sm:m-0" />
@@ -154,9 +154,9 @@ export default (props: any) => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
-      <div className="sections third-section">
+      {/* <div className="sections third-section">
         <div className="part-top sm:pt-5 lg:pt-0">
           <div className="inner">
             <div className="img-wrapper">
@@ -194,9 +194,9 @@ export default (props: any) => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
-      <div className="sections fourth-section">
+      {/* <div className="sections fourth-section">
         <div className="part-top">
           <div className="inner">
             <div className="fish-container">
@@ -326,9 +326,9 @@ export default (props: any) => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
-      <div className="sections fifth-section" id="about">
+      {/* <div className="sections fifth-section" id="about">
         <div className="part-top pt-5 sm:pt-0">
           <div className="inner">
             <div className="text-group sm:mt-5 lg:mt-0">
@@ -350,9 +350,9 @@ export default (props: any) => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
-      <div className="sections sixth-section">
+      {/* <div className="sections sixth-section">
         <div className="part-top">
           <div className="inner">
             <div className="text-group">
@@ -467,7 +467,7 @@ export default (props: any) => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
