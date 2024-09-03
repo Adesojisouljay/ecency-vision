@@ -22,7 +22,7 @@ export default async (req: express.Request, res: express.Response) => {
 
   let entries = {};
 
-  // blog or comments or replies section
+  ///// blog or comments or replies section
   if (ProfileFilter[section as keyof typeof ProfileFilter]) {
     let entryList: Entry[] = [];
 
