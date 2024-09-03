@@ -63,7 +63,9 @@ export class ProfileMenu extends Component<Props> {
       items: MenuItem[];
     } = {
       history: this.props.history,
-      label: ProfileFilter[section] ? _t(`profile.section-${section}`) : "",
+      label: ProfileFilter[section as keyof typeof ProfileFilter]
+        ? _t(`profile.section-${section}`)
+        : "",
       items: [...menuItems, ...kebabMenuItems.filter((item) => item.selected)]
     };
 
@@ -165,7 +167,7 @@ export class ProfileMenu extends Component<Props> {
         </div>
 
         <div className="page-tools">
-          {ProfileFilter[section] && (
+          {ProfileFilter[section as keyof typeof ProfileFilter] && (
             <ListStyleToggle
               global={this.props.global}
               toggleListStyle={this.props.toggleListStyle}

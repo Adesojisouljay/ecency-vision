@@ -23,7 +23,7 @@ export default async (req: express.Request, res: express.Response) => {
   let entries = {};
 
   // blog or comments or replies section
-  if (ProfileFilter[section]) {
+  if (ProfileFilter[section as keyof typeof ProfileFilter]) {
     let entryList: Entry[] = [];
 
     try {
@@ -52,8 +52,8 @@ export default async (req: express.Request, res: express.Response) => {
     }
   } catch (e) {}
 
-  const filter = ProfileFilter[section] || defaults.filter;
-  const tag = ProfileFilter[section] ? address : "";
+  const filter = ProfileFilter[section as keyof typeof ProfileFilter] || defaults.filter;
+  const tag = ProfileFilter[section as keyof typeof ProfileFilter] ? address : "";
 
   const state = await makePreloadedState(req);
 

@@ -95,8 +95,10 @@ export const DeckNotificationsColumn = ({ id, settings, draggable, history }: Pr
       draggable={draggable}
       header={{
         title: "@" + settings.username.toLowerCase(),
-        subtitle: notificationsTitles[settings.contentType]
-          ? `${_t("decks.notifications")} – ${notificationsTitles[settings.contentType]}`
+        subtitle: notificationsTitles[settings.contentType as keyof typeof notificationsTitles]
+          ? `${_t("decks.notifications")} – ${
+              notificationsTitles[settings.contentType as keyof typeof notificationsTitles]
+            }`
           : _t("decks.notifications"),
         icon: null,
         updateIntervalMs: settings.updateIntervalMs,

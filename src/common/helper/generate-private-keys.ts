@@ -16,7 +16,7 @@ export const generateKeys = (activeUser: ActiveUser, password: string): UserKeys
   try {
     ["owner", "active", "posting", "memo"].forEach((r) => {
       const k = PrivateKey.fromLogin(activeUser.username, password, r as KeyRole);
-      newPrivateKeys[r] = k.toString();
+      newPrivateKeys[r as KeyRole] = k.toString();
       if (r === "memo") keyCheck = k.createPublic().toString();
     });
   } catch (err) {

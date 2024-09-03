@@ -20,7 +20,7 @@ export const makePath = (filter: string, tag: string): string => {
     return `/${EntryFilter.created}/${tag}`;
   }
 
-  if (EntryFilter[filter] === undefined) {
+  if (EntryFilter[filter as keyof typeof EntryFilter] === undefined) {
     return `/${EntryFilter.created}/${tag}`;
   }
 
@@ -41,7 +41,7 @@ interface Props {
   type?: "link" | "span";
 }
 
-declare var window: AppWindow;
+declare var window: AppWindow | any;
 
 // some tags are special community tags.
 // we keep community titles for that tags inside this variable

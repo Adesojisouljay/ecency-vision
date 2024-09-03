@@ -9,7 +9,7 @@ export function useLocalDraftManager(
   setIsDraftEmpty: (v: boolean) => void,
   onDraftLoaded: (title: string, tags: string[], body: string) => void
 ) {
-  const [localDraft, setLocalDraft] = useLocalStorage<PostBase>(PREFIX + "_local_draft");
+  const [localDraft, setLocalDraft]: any = useLocalStorage<PostBase>(PREFIX + "_local_draft");
 
   const { isEntry, isDraft } = useEntryTypeDetection(match);
 

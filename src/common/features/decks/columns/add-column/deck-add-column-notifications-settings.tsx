@@ -49,7 +49,7 @@ export const DeckAddColumnNotificationsSettings = ({ deckKey }: SettingsProps) =
                 key={title}
                 onClick={() => setContentType(type)}
               >
-                {ICONS.n[type]}
+                {ICONS.n[type as keyof typeof ICONS.n]}
                 <div className="title">{title}</div>
               </div>
             ))}

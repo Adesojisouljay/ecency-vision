@@ -74,7 +74,7 @@ export function ThreeSpeakManager(props: { children: ReactNode }) {
 
         checkBodyForVideos: (body: string) => {
           if (body) {
-            const nextVideos = {};
+            const nextVideos: any = {};
             const existingVideos = body.match(/\[3speak]\(.*\)/gm);
             existingVideos
               ?.map((group) => ({ id: group.replace("[3speak](", "").replace(")", "") }))

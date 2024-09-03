@@ -1,15 +1,20 @@
 import { Entry } from "../store/entries/types";
-
-import apps from "@hiveio/hivescript/apps.json";
-
+import appsJson from "@hiveio/hivescript/apps.json";
 import defaults from "../../common/constants/defaults.json";
-
 import appName from "./app-name";
 
-export default (entry: Entry, isAmp: boolean = false): string | null => {
-  if (isAmp) {
-    return `${defaults.base}${entry.url}`;
-  }
+interface App {
+  name: string;
+  homepage: string;
+  url_scheme: string;
+}
+
+interface Apps {
+  [key: string]: App;
+}
+
+export default (entry: Entry, a = true): string | null => {
+  const apps: Apps | any = appsJson;
 
   if (entry.json_metadata?.canonical_url) {
     return entry.json_metadata?.canonical_url.replace("https://www.", "https://");
@@ -20,8 +25,7 @@ export default (entry: Entry, isAmp: boolean = false): string | null => {
   const app = appName(entry.json_metadata.app);
 
   if (app) {
-    const identifier = app.split("/")[0];
-
+    const identifier: string = app.split("/")[0];
     if (apps[identifier]) {
       scheme = apps[identifier].url_scheme;
     }

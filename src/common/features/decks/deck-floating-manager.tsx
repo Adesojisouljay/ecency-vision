@@ -66,8 +66,10 @@ export const DeckFloatingManager = () => {
               key={key + type}
             >
               {settings && "contentType" in settings
-                ? ICONS[type][settings.contentType]
-                : ICONS[type]}
+                ? (ICONS[type as keyof typeof ICONS] as { [key: string]: JSX.Element })[
+                    settings.contentType
+                  ]
+                : ICONS[type as keyof typeof ICONS]}
               <div className="title">
                 <div>{getColumnTitle(type, settings)}</div>
                 <div className="primary">

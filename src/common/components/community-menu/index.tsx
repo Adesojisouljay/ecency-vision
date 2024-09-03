@@ -115,7 +115,7 @@ export const CommunityMenu = (props: Props) => {
         </Link>
       </div>
 
-      {EntryFilter[props.match.params.filter] && (
+      {EntryFilter[props.match.params.filter as keyof typeof EntryFilter] && (
         <div className="page-tools">
           <ListStyleToggle global={props.global} toggleListStyle={props.toggleListStyle} />
         </div>

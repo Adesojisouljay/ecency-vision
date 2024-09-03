@@ -56,7 +56,7 @@ export default async (req: express.Request, res: express.Response) => {
     ...state,
     global: {
       ...state.global,
-      ...{ filter: EntryFilter[filter], tag: name }
+      ...{ filter: EntryFilter[filter as keyof typeof EntryFilter], tag: name }
     },
     entries: {
       ...state.entries,
