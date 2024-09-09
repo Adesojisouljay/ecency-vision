@@ -30,10 +30,10 @@ import filterTagExtract from "../../helper/filter-tag-extract";
 const defaultTheme = ls.get("theme") || defaults.theme;
 
 export const initialState: Global = {
-  filter: AllFilter[defaults.filter],
+  filter: AllFilter[defaults.filter as keyof typeof AllFilter],
   tag: "",
-  theme: Theme[defaultTheme],
-  listStyle: ListStyle[defaults.listStyle],
+  theme: Theme[defaultTheme as keyof typeof Theme],
+  listStyle: ListStyle[defaults.listStyle as keyof typeof ListStyle],
   intro: true,
   currency: defaults && defaults.currency && defaults.currency.currency,
   currencyRate: defaults && defaults.currency && defaults.currency.rate,
@@ -67,7 +67,7 @@ export default (state: Global = initialState, action: Actions): Global => {
 
       const { filter, tag } = params;
 
-      return { ...state, filter: AllFilter[filter] || "", tag: tag };
+      return { ...state, filter: AllFilter[filter as keyof typeof AllFilter] || "", tag: tag };
     }
     case ActionTypes.THEME_CHANGE: {
       const { theme } = action;

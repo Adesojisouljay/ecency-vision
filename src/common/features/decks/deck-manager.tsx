@@ -30,7 +30,7 @@ interface Context {
 
 export const DeckGridContext = React.createContext<Context>({
   activeDeck: "",
-  layout: DEFAULT_LAYOUT[0],
+  layout: DEFAULT_LAYOUT.decks[0],
   decks: DEFAULT_LAYOUT,
   add: () => {},
   reOrder: () => {},

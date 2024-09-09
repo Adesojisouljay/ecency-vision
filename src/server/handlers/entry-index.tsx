@@ -51,11 +51,14 @@ export default async (req: express.Request, res: express.Response) => {
     }
   }
 
-  const preLoadedState: AppState = {
+  const preLoadedState: AppState | any = {
     ...state,
     global: {
       ...state.global,
-      ...{ filter: filter === "feed" ? filter : EntryFilter[filter], tag } // TODO: AllFilter can be used
+      ...{
+        filter: filter === "feed" ? filter : EntryFilter[filter as keyof typeof EntryFilter],
+        tag
+      } // TODO: AllFilter can be used
     },
     trendingTags: {
       ...state.trendingTags,

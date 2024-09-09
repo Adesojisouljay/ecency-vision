@@ -25,7 +25,9 @@ export const getPrivateKeys = (username: any, password: any) => {
   };
   roles.forEach((role) => {
     privKeys[role] = PrivateKey.fromLogin(username, password, role).toString();
-    privKeys[`${role}Pubkey`] = PrivateKey.from(privKeys[role]).createPublic().toString();
+    privKeys[`${role}Pubkey` as KeyRole] = PrivateKey.from(privKeys[role])
+      .createPublic()
+      .toString();
   });
 
   return privKeys;

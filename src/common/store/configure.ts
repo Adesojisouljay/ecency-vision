@@ -3,6 +3,9 @@ import thunk from "redux-thunk";
 import { routerMiddleware } from "connected-react-router";
 
 import rootReducer, { AppState, history } from "./index";
+import { AppWindow } from "../../client/window";
+
+declare var window: AppWindow | any;
 
 const enhancers = [];
 let middleware: Middleware[] = [thunk];

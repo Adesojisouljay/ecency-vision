@@ -214,7 +214,7 @@ export class Preferences extends BaseComponent<Props, State> {
                   <div className="mb-4">
                     <label>{_t("preferences.theme")}</label>
                     <FormControl
-                      value={Theme[this.state.defaultTheme]}
+                      value={Theme[this.state.defaultTheme as keyof typeof Theme]}
                       type="select"
                       onChange={this.themeChanged}
                     >

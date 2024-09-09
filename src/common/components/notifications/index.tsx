@@ -153,7 +153,7 @@ export class DialogContent extends Component<NotificationProps, any> {
   prepareSettings = () => {
     const { notifications } = this.props;
     if (notifications.settings) {
-      const settings = {
+      const settings: any = {
         [NotifyTypes.ALLOW_NOTIFY]: notifications.settings.allows_notify === 1
       };
       Object.keys(this.state.settings)

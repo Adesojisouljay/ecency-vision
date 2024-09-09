@@ -14,7 +14,7 @@ import { loadableReady } from "@loadable/component";
 import { queryClient } from "../common/core";
 import { Hydrate, QueryClientProvider } from "@tanstack/react-query";
 
-declare var window: AppWindow;
+declare var window: AppWindow | any;
 
 const store = configureStore(window["__PRELOADED_STATE__"]);
 

@@ -106,7 +106,7 @@ const DeckThreadsColumnComponent = ({ id, settings, history, draggable }: Props)
 
       items.sort((a, b) => (moment(a.created).isAfter(b.created) ? -1 : 1));
 
-      const nextHostGroupedData = AVAILABLE_THREAD_HOSTS.reduce(
+      const nextHostGroupedData: any = AVAILABLE_THREAD_HOSTS.reduce(
         (acc, host) => ({
           ...acc,
           [host]: items.filter((i) => i.host === host)
@@ -121,7 +121,7 @@ const DeckThreadsColumnComponent = ({ id, settings, history, draggable }: Props)
         ...usingHosts.reduce(
           (acc, host) => ({
             ...acc,
-            [host]: nextHostGroupedData[host].length > 0
+            [host]: nextHostGroupedData[host as keyof typeof nextHostGroupedData].length > 0
           }),
           {}
         )
@@ -135,7 +135,7 @@ const DeckThreadsColumnComponent = ({ id, settings, history, draggable }: Props)
         setNextPageError(true);
         setTimeout(() => {
           fetchData(sinceEntries, retries + 1);
-        }, ERROR_ATTEMPTS_INTERVALS[retries]);
+        }, ERROR_ATTEMPTS_INTERVALS[retries as keyof typeof ERROR_ATTEMPTS_INTERVALS]);
       }
       console.error(e);
     } finally {

@@ -179,7 +179,7 @@ export const reblog = (
   permlink: string,
   _delete: boolean = false
 ): Promise<TransactionConfirmation> => {
-  const message = {
+  const message: any = {
     account: username,
     author,
     permlink

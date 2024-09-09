@@ -54,7 +54,7 @@ export const DeckAddColumnCommunitySettings = ({ deckKey }: SettingsProps) => {
                 key={title}
                 onClick={() => setContentType(type)}
               >
-                {ICONS.co[type]}
+                {ICONS.co[type as keyof typeof ICONS.co]}
                 <div className="title">{title}</div>
               </div>
             ))}

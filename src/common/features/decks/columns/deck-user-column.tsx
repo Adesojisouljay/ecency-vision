@@ -84,7 +84,7 @@ export const DeckUserColumn = ({ id, settings, draggable, history }: Props) => {
       draggable={draggable}
       header={{
         title: "@" + settings.username.toLowerCase(),
-        subtitle: userTitles[settings.contentType] ?? _t("decks.user"),
+        subtitle: userTitles[settings.contentType as keyof typeof userTitles] ?? _t("decks.user"),
         icon: null,
         updateIntervalMs: settings.updateIntervalMs,
         setUpdateIntervalMs: (v) => updateColumnIntervalMs(id, v),
@@ -110,7 +110,9 @@ export const DeckUserColumn = ({ id, settings, draggable, history }: Props) => {
             entry={currentViewingEntry}
             history={history}
             onClose={() => setCurrentViewingEntry(null)}
-            backTitle={`@${settings.username}(${userTitles[settings.contentType]})`}
+            backTitle={`@${settings.username}(${
+              userTitles[settings.contentType as keyof typeof userTitles]
+            })`}
           />
         ) : (
           <></>

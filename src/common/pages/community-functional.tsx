@@ -99,7 +99,7 @@ export const CommunityPage = (props: Props) => {
     const { match, fetchEntries } = props;
     const { filter, name } = match.params;
     // fetch blog posts.
-    if (EntryFilter[filter]) fetchEntries(filter, name, false);
+    if (EntryFilter[filter as keyof typeof EntryFilter]) fetchEntries(filter, name, false);
     const urlParams = new URLSearchParams(location.search);
     const communityId = urlParams.get("communityid");
     if (communityId) {
@@ -132,7 +132,10 @@ export const CommunityPage = (props: Props) => {
       queryClient.invalidateQueries([QueryIdentifiers.COMMUNITY, match.params.name]);
 
     //  community or filter changed
-    if ((filter !== prevParams.filter || name !== prevParams.name) && EntryFilter[filter]) {
+    if (
+      (filter !== prevParams.filter || name !== prevParams.name) &&
+      EntryFilter[filter as keyof typeof EntryFilter]
+    ) {
       fetchEntries(match.params.filter, match.params.name, false);
     }
 
@@ -183,7 +186,7 @@ export const CommunityPage = (props: Props) => {
     const { match, fetchEntries, invalidateEntries } = props;
     const { filter, name } = match.params;
 
-    if (EntryFilter[filter]) {
+    if (EntryFilter[filter as keyof typeof EntryFilter]) {
       invalidateEntries(makeGroupKey(filter, name));
       fetchEntries(filter, name, false);
     }

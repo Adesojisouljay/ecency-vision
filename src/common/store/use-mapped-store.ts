@@ -11,7 +11,7 @@ export const useMappedStore = () => {
   const storeStateAccessor: AppState = store.getState();
   const storeStateAccessorProxy = new Proxy<AppState>(storeStateAccessor, {
     get(target, p, receiver: any): any {
-      return useSelector((state) => state[p]);
+      return useSelector((state: any) => state[p]);
     }
   });
 

@@ -61,8 +61,8 @@ export class PasswordUpdate extends BaseComponent<Props, State> {
 
     this.stateSet({ inProgress: true });
 
-    const newPrivateKeys = { active: "", memo: "", owner: "", posting: "" };
-    const newPublicKeys = { active: "", memo: "", owner: "", posting: "" };
+    const newPrivateKeys: any = { active: "", memo: "", owner: "", posting: "" };
+    const newPublicKeys: any = { active: "", memo: "", owner: "", posting: "" };
 
     ["owner", "active", "posting", "memo"].forEach((r) => {
       const k = PrivateKey.fromLogin(activeUser.username, newPass, r as KeyRole);
