@@ -18,7 +18,7 @@ FROM base as dependencies
 RUN yarn install --non-interactive --frozen-lockfile --ignore-optional --production
 
 ### BUILD MINIFIED PRODUCTION ##
-FROM node:12.16.2-alpine as production
+FROM node:16.15-alpine as production
 
 # Add Tini
 ENV TINI_VERSION v0.18.0
@@ -37,5 +37,5 @@ COPY --from=dependencies /var/app/node_modules /var/app/node_modules
 
 HEALTHCHECK --interval=15s --timeout=5s CMD node /var/app/healthCheck.js
 
-EXPOSE 3000
+EXPOSE 5111
 CMD [ "yarn", "run", "start:prod" ]
