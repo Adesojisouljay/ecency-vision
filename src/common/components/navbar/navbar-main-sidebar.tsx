@@ -19,6 +19,7 @@ import { NavbarSideThemeSwitcher } from "./sidebar/navbar-side-theme-switcher";
 import { closeSvg } from "../../img/svg";
 import { Button } from "@ui/button";
 import { Searchbar } from "./search";
+import { useMappedStore } from "../../store/use-mapped-store";
 
 interface Props {
   show: boolean;
@@ -28,23 +29,17 @@ interface Props {
 }
 
 export function NavbarMainSidebar({ show, setShow, history, setStepOne }: Props) {
+  const { global, toggleUIProp, notifications } = useMappedStore();
   const [showAnimated, setShowAnimated] = useState(false);
   const [isReady, cancel, reset] = useTimeoutFn(() => setShowAnimated(show), 100);
 
   useEffect(() => {
+    console.log(global);
     reset();
   }, [show]);
 
   const onLogoClick = () => {
-    if (
-      "/" !== location.pathname ||
-      location.pathname?.startsWith("/hot") ||
-      location.pathname?.startsWith("/created") ||
-      location.pathname?.startsWith("/trending")
-    ) {
-      history.push("/");
-    }
-    setStepOne?.();
+    window.location.href = "/";
   };
 
   return (
@@ -57,13 +52,21 @@ export function NavbarMainSidebar({ show, setShow, history, setStepOne }: Props)
       >
         <div className="px-4 py-3 mt-[2px] flex items-center justify-between gap-3">
           <div className="flex items-center gap-3">
-            <div className="h-[40px] w-[40px] shrink-0 cursor-pointer">
-              <img
-                src={require("../../img/logo-circle.svg")}
-                className="h-[40px] w-[40px]"
-                alt="Logo"
-                onClick={onLogoClick}
-              />
+            <div className="h-[60px] w-[60px] shrink-0 cursor-pointer">
+              <a href="/">
+                <img
+                  style={{ borderRadius: "50%" }}
+                  className="h-[60px] w-[60px]"
+                  src={`https://images.hive.blog/u/${global.hive_id}/avatar`}
+                  alt="Logo"
+                />
+
+                {/* <img
+                  src={require("../../img/logo-circle.svg")}
+                  className="h-[40px] w-[40px]"
+                  alt="Logo"
+                /> */}
+              </a>
             </div>
             <NavbarSideThemeSwitcher />
           </div>
@@ -72,32 +75,32 @@ export function NavbarMainSidebar({ show, setShow, history, setStepOne }: Props)
         <div className="px-4 py-6 flex flex-col gap-0.5">
           <Searchbar history={history} />
           <hr className="my-2" />
-          <NavbarSideMainMenuItem
+          {/* <NavbarSideMainMenuItem
             label={_t("navbar.home")}
             onClick={() => {
               setShow(false);
               onLogoClick();
             }}
             icon={<UilHome size={16} />}
-          />
-          <NavbarSideMainMenuItem
+          /> */}
+          {/* <NavbarSideMainMenuItem
             label={_t("navbar.discover")}
             to="/discover"
             onClick={() => setShow(false)}
             icon={<UilUsersAlt size={16} />}
-          />
-          <NavbarSideMainMenuItem
+          /> */}
+          {/* <NavbarSideMainMenuItem
             label={_t("navbar.communities")}
             to="/communities"
             onClick={() => setShow(false)}
             icon={<UilUserSquare size={16} />}
-          />
-          <NavbarSideMainMenuItem
+          /> */}
+          {/* <NavbarSideMainMenuItem
             label={_t("navbar.decks")}
             to="/decks"
             onClick={() => setShow(false)}
             icon={<UilColumns size={16} />}
-          />
+          /> */}
 
           <NavbarSideMainMenuItem
             label={_t("proposals.page-title")}
@@ -111,12 +114,12 @@ export function NavbarMainSidebar({ show, setShow, history, setStepOne }: Props)
             onClick={() => setShow(false)}
             icon={<UilCloudComputing size={16} />}
           />
-          <NavbarSideMainMenuItem
+          {/* <NavbarSideMainMenuItem
             label={_t("switch-lang.contributors")}
             to="/contributors"
             onClick={() => setShow(false)}
             icon={<UilListUl size={16} />}
-          />
+          /> */}
 
           <hr className="my-2" />
           <div className="text-xs">
@@ -125,16 +128,16 @@ export function NavbarMainSidebar({ show, setShow, history, setStepOne }: Props)
               to="/faq"
               onClick={() => setShow(false)}
             />
-            <NavbarSideMainMenuItem
+            {/* <NavbarSideMainMenuItem
               label={_t("entry-index.tos")}
               to="/terms-of-service"
               onClick={() => setShow(false)}
-            />
-            <NavbarSideMainMenuItem
+            /> */}
+            {/* <NavbarSideMainMenuItem
               label={_t("entry-index.pp")}
               to="/privacy-policy"
               onClick={() => setShow(false)}
-            />
+            /> */}
           </div>
           <div className="p-4 items-center flex justify-between">
             <span className="text-xs opacity-50">v{pack.version}</span>
