@@ -55,7 +55,7 @@ export function NavbarDesktop({
       >
         <NavbarMainSidebarToggle onClick={() => setMainBarExpanded(true)} />
         <div className="flex-1" />
-        <NavbarTextMenu />
+        {/* <NavbarTextMenu /> discover and community */}
         <div className="flex-spacer" />
         {(step !== 1 || transparentVerify) && (
           <div className="max-w-[400px] w-full">
@@ -67,6 +67,7 @@ export function NavbarDesktop({
           <ToolTip content={_t("navbar.post")}>
             <Button to="/submit" appearance="gray-link" className="ml-3" icon={<UilEditAlt />} />
           </ToolTip>
+          <NavbarNotificationsButton />
           {activeUser && <NavbarNotificationsButton />}
         </div>
         <div className="btn-menu">

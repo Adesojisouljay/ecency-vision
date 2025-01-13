@@ -97,9 +97,8 @@ const App = (props: any) => {
 
   useEffect(() => {
     if (window.location.pathname === "/") {
-      const defaultFilter = "trending";
-      console.log(defaultFilter);
-      const defaultCommunity = "hive-106130";
+      const defaultFilter = "created"; //// default to created feeds
+      const defaultCommunity = global.hive_id;
       history?.push(`/${defaultFilter}/${defaultCommunity}`);
     }
   }, []);
